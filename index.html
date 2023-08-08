@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vinyl Browser</title>
+    <style>
+        body {
+            overflow: hidden;
+            font-family: 'Arial', sans-serif;
+            background-color: black;
+            perspective: 1000px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        #vinylButton {
+            padding: 40px 120px;
+            border: none;
+            background-color: #ff00ff;
+            color: #fff;
+            font-size: 18px;
+            cursor: pointer;
+            animation: colorChange 5s infinite;
+            z-index: 1;
+            clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
+        }
+
+        @keyframes colorChange {
+            0% { background-color: #ff00ff; }
+            25% { background-color: #00ff00; }
+            50% { background-color: #ff0000; }
+            75% { background-color: #0000ff; }
+            100% { background-color: #ff00ff; }
+        }
+
+        .kaleidoscope {
+            position: absolute;
+            width: 100px;
+            height: 100px;
+            background-color: rgba(255, 0, 255, 0.5);
+            animation: rotate 5s infinite, moveX 6s infinite alternate, moveY 7s infinite alternate;
+            border-radius: 50%;
+            mix-blend-mode: screen;
+        }
+
+        @keyframes rotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        @keyframes moveX {
+            0% { left: 0; }
+            100% { left: 100vw; }
+        }
+
+        @keyframes moveY {
+            0% { top: 0; }
+            100% { top: 100vh; }
+        }
+    </style>
+</head>
+<body>
+    <button id="vinylButton" onclick="window.location.href='https://supergillie.pythonanywhere.com/artist/lee%20perry'">Vinyl Browser</button>
+
+    <script>
+        // Create kaleidoscope-like background
+        for (let i = 0; i < 50; i++) {
+            let kaleidoscope = document.createElement('div');
+            kaleidoscope.className = 'kaleidoscope';
+            kaleidoscope.style.top = Math.random() * window.innerHeight + 'px';
+            kaleidoscope.style.left = Math.random() * window.innerWidth + 'px';
+            kaleidoscope.style.animationDuration = `${Math.random() * 5 + 3}s, ${Math.random() * 6 + 4}s, ${Math.random() * 7 + 5}s`;
+            kaleidoscope.style.opacity = Math.random();
+            kaleidoscope.style.backgroundColor = `rgba(${Math.random() * 255}, ${Math.random() * 255}, ${Math.random() * 255}, 0.5)`;
+            document.body.appendChild(kaleidoscope);
+        }
+    </script>
+</body>
+</html>
