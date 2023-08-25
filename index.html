@@ -1,9 +1,22 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Vinyl Browser</title>
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-R0YEMTQQ0V"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-R0YEMTQQ0V');
+</script>
+
+
     <style>
         body {
             overflow: hidden;
@@ -17,7 +30,7 @@
         }
 
         #vinylButton {
-            padding: 40px 120px;
+            padding: 60px 180px;
             border: none;
             background-color: #ff00ff;
             color: #fff;
@@ -29,11 +42,25 @@
         }
 
         @keyframes colorChange {
-            0% { background-color: #ff00ff; }
-            25% { background-color: #00ff00; }
-            50% { background-color: #ff0000; }
-            75% { background-color: #0000ff; }
-            100% { background-color: #ff00ff; }
+            0% {
+                background-color: #ff00ff;
+            }
+
+            25% {
+                background-color: #00ff00;
+            }
+
+            50% {
+                background-color: #ff0000;
+            }
+
+            75% {
+                background-color: #0000ff;
+            }
+
+            100% {
+                background-color: #ff00ff;
+            }
         }
 
         .kaleidoscope {
@@ -47,23 +74,119 @@
         }
 
         @keyframes rotate {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
         }
 
         @keyframes moveX {
-            0% { left: 0; }
-            100% { left: 100vw; }
-        }
+            0% {
+                left: 0;
+            }
+
+            100% {
+                left: 100vw;
+            }
+        }
 
         @keyframes moveY {
-            0% { top: 0; }
-            100% { top: 100vh; }
+            0% {
+                top: 0;
+            }
+
+            100% {
+                top: 100vh;
+            }
         }
+
+        .starContainer {
+            position: relative;
+            display: inline-block;
+        }
+
+        #artistInput {
+            position: absolute;
+            top: 50%;
+            /* Center the input vertically */
+            left: 50%;
+            /* Center the input horizontally */
+            transform: translate(-50%, -50%);
+            /* Adjust for the input's own dimensions */
+            background-color: transparent;
+            /* Make the input background transparent */
+            border: none;
+            /* Remove the default border */
+            text-align: center;
+            /* Center the text inside the input */
+            color: rgb(17, 14, 14);
+            /* Set the text color to white */
+            outline: none;
+            /* Remove the default outline */
+            font-size: 18px;  /* Adjust as needed */
+            width: 60%;  /* Adjust as needed */
+            z-index: 2;  /* Make sure this value is higher than the z-index of the star button */
+            background-color: white;  /* Set the background color to white */
+
+        }
+
+
+        #vinylButton {
+            /* ... (existing styles) ... */
+            display: block;
+            /* Make the button a block element */
+        }
+
+        #artistInput:focus {
+            border-bottom: 2px solid white;
+            /* Add a bottom border to indicate focus */
+        }
+
+        #artistInput::placeholder {
+           /* Adjust the vertical position of the placeholder text */
+            padding-top: 10px;  /* Adjust as needed */
+        }
+
+    #starLinkButton {
+        position: absolute;
+        bottom: 10px;
+        right: 10px;
+        padding: 10px 20px; /* Adjusted size */
+        border: none;
+        background-color: pink; /* Pink color */
+        color: #fff;
+        font-size: 16px; /* Adjusted font-size */
+        cursor: pointer;
+        border-radius: 5px; /* Rounded edges for the button */
+        transition: background-color 0.3s; /* Smooth transition for hover effect */
+    }
+
+    #starLinkButton:hover {
+        background-color: #ff66b2; /* A slightly darker pink for hover */
+    }
+
     </style>
 </head>
+
 <body>
-    <button id="vinylButton" onclick="window.location.href='https://supergillie.pythonanywhere.com/artist/lee%20perry'">Vinyl Browser</button>
+
+  
+
+    <div class="starContainer">
+    <form id="artistForm" onsubmit="event.preventDefault(); goToArtistPage();">
+        <input type="text" id="artistInput" placeholder="Enter artist and press enter">
+        <button id="vinylButton" type="submit"></button>
+    </form>
+    </div>
+
+ 
+     <button id="starLinkButton" onclick="window.location.href='index3.html';">Healthpage</button>
+
+
+
 
     <script>
         // Create kaleidoscope-like background
@@ -78,5 +201,23 @@
             document.body.appendChild(kaleidoscope);
         }
     </script>
+    <script>
+        function goToArtistPage() {
+            const artistName = document.getElementById('artistInput').value;
+            const encodedName = encodeURIComponent(artistName);  // Encode the artist name to be URL-safe
+            const url = `https://supergillie.pythonanywhere.com/artist/${encodedName}`;
+            window.location.href = url;
+        }
+        document.getElementById('artistInput').addEventListener('blur', function() {
+        // Check if the input field has a value before processing
+           if (this.value.trim() !== '') {
+                goToArtistPage();
+            }
+    });
+</script>
+
+
+
 </body>
+
 </html>
